@@ -53,6 +53,8 @@ var createTaskEl = function (taskDataObj) {
 
   tasks.push(taskDataObj);
 
+  saveTasks();
+
   // create task actions (buttons and select) for task
   var taskActionsEl = createTaskActions(taskIdCounter);
   listItemEl.appendChild(taskActionsEl);
@@ -125,6 +127,8 @@ var completeEditTask = function (taskName, taskType, taskId) {
     formEl.querySelector("#save-task").textContent = "Add Task";
   };
 
+  saveTasks();
+
   var taskButtonHandler = function (event) {
     // get target element from event
     var targetEl = event.target;
@@ -165,6 +169,8 @@ var completeEditTask = function (taskName, taskType, taskId) {
         tasks[i].status = statusValue;
       }
     }
+
+    saveTasks();
 
   };
 
@@ -210,6 +216,13 @@ var completeEditTask = function (taskName, taskType, taskId) {
 
     // reassign tasks array to be the same as updatedTaskArr
     tasks = updatedTaskArr;
+
+    saveTasks();
+
+  };
+
+  var saveTasks = function () {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
   // Create a new task
